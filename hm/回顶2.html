@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>回到顶部</title>
+		<style>
+			body {
+				height: 5000px;
+			}
+			
+			input {
+				position: fixed;
+				bottom: 0px;
+				right: 0px;
+			}
+		</style>
+		<script>
+			window.onload = function() {
+				var oBtn = document.getElementById('btn');
+				var timer = null;
+				var bFlag = false;
+				oBtn.onclick = function() {
+					moveScroll(0, 3000);
+
+				};
+
+				window.onscroll = function() {
+					if(bFlag) {
+						clearInterval(timer);
+					}
+					bFlag = true;
+				};
+
+				function moveScroll(target, time) {
+					var start = document.documentElement.scrollTop || document.body.scrollTop;
+					var dis = target - start;
+					var count = Math.floor(time / 30);
+					var s = 1;
+					var n = 0;
+
+					clearInterval(timer);
+					timer = setInterval(function() {
+						s = s*2;
+						n++;
+						bFlag = false;
+						document.documentElement.scrollTop = start + dis * n / count*s;
+						document.body.scrollTop = start + dis * n / count*s;
+						if(Math.ceil((start + dis * n / count*s))<0){
+							clearInterval(timer);
+						}
+//						if(n == count) {
+//							clearInterval(timer);
+//						}
+
+					}, 30);
+				}
+			};
+		</script>
+	</head>
+
+	<body>
+		<input type="button" value="回顶" id="btn"/>
+	</body>
+
+</html>
