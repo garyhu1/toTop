@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>回顶</title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			#dd {
+				height: 4000px;
+			}
+			
+			h1 {
+				width: 600px;
+				margin: 100px auto;
+			}
+			
+			.totop {
+				position: fixed;
+				bottom: 20px;
+				right: 30px;
+				width: 50px;
+				height: 100px;
+				line-height: 100px;
+				text-align: center;
+				background: forestgreen;
+			}
+			
+			.totop .pp {
+				color: #fff;
+				height: 100px;
+				width: 50px;
+				line-height: 100px;
+				text-align: center;
+			}
+			
+			.zz {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="dd">
+			<h1>点击按钮回到顶部</h1>
+			<div class="zz" id="top">
+				<p class="pp">回顶</p>
+			</div>
+		</div>
+	</body>
+	<script>
+		var toTop = document.getElementById("top");
+		//监听滚动
+		window.onscroll = function() {
+			var top;
+			if(document.documentElement.scrollTop) {
+				top = document.documentElement.scrollTop;
+			} else {
+				top = document.body.scrollTop;
+			}
+
+			if(top > 1) {
+				toTop.className = "totop";
+			} else {
+				toTop.className = "zz";
+			}
+		}
+		toTop.onclick = function() {
+			scrollTop(this);
+		}
+
+		function scrollTop(obj) {
+			obj.timer = setInterval(function() {
+				setScrollTop(getScrollTop() / 1.1);
+				if(getScrollTop() < 1) {
+					clearInterval(obj.timer);
+				}
+			}, 10);
+		}
+
+		function getScrollTop() {
+			var top;
+			if(document.documentElement.scrollTop){
+				top = document.documentElement.scrollTop;
+			}else{
+				top = document.body.scrollTop;
+			}
+			return top;
+		}
+
+		function setScrollTop(value) {
+			if(document.documentElement.scrollTop) {
+				document.documentElement.scrollTop = value;
+			} else {
+				document.body.scrollTop = value;
+			}
+		}
+	</script>
+
+</html>
